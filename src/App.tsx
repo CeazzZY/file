@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getArrayBufFromBlobs } from "./utils/getArrayBufFromBlobs";
-import { MerkleTree } from "./utils/MerkleTree";
-import { sliceFile } from "./utils/sliceFile";
-import { WorkerService } from "./utils/workerService";
+import { MinioUploaderService } from "./utils/main";
+import { server } from "./utils/server";
 
 function App() {
   let file: File;
@@ -12,14 +10,11 @@ function App() {
   }
 
   async function handleGetHash() {
-    const chunk: Blob[] = sliceFile(file);
-    const arrayBuffer: ArrayBuffer[] = await getArrayBufFromBlobs(chunk);
-    const workerService = new WorkerService();
-    const chunksHash = await workerService.getMD5ForFiles(arrayBuffer);
+    const minioUploaderService = new MinioUploaderService(server);
 
-    const merkleTree = new MerkleTree(chunksHash);
-    const fileHash = merkleTree.getRootHash();
-    console.log(fileHash);
+    minioUploaderService.doUpload(file, (num) => {
+      console.log(num);
+    });
   }
 
   return (

@@ -11,11 +11,13 @@
   },
   "dependencies": {
     "antd": "^5.19.1",
+    "axios": "^1.7.3",
     "hash-worker": "^0.1.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rxjs": "^7.8.1",
-    "spark-md5": "^3.0.2"
+    "spark-md5": "^3.0.2",
+    "xxhashjs": "^0.2.2"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
